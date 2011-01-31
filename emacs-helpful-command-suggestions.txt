@@ -1,0 +1,143 @@
+Emacs: helpful command suggestions
+
+    * M-x info -- documentation! Use it!
+    * C-h a -- more documentation!
+    * incremental search
+    * keyboard macros
+    * the rectangle commands
+    * registers
+    * pop-mark
+    * dabbrev-expand
+
+All the help commands are useful, but I use a few more than others:
+
+    * C-h k -- tells what command a keyboard shortcut calls
+    * C-h f -- function documentation
+    * C-h v -- variable documentation
+    * C-h m -- mode documentation. Usually gives a list of available commands
+
+As for other commands:
+
+    * query-replace-regexp
+    * dired-do-query-replace-regexp -- search and replace in all marked files.
+    * upcase-word and friends -- makes caps lock unnecessary.
+    * tags -- jump to a function's definition and back
+    * flymake-mode -- shows warnings/errors as you type. It's similar to what many IDEs do. It may take a little work to set up, but it's worth it.
+    * indent-region (C-M-\) -- fix messed up indentation.
+
+    * Rectangle commands
+    * M-x align-regexp
+    * M-x ido-mode (I love this, cuts a LOT of keystrokes)
+    * M-x eshell (awesome completion & directory history)
+    * keyboard macros
+    * C-x C-x (swap point and mark)
+    * C-u C-<spc> (visit places you've been)
+    * M-/ (dabbrev-expand, I lean on this a lot)
+    * "Q" in dired (C-x d) -- find-replace across a set of files
+    * M-x gnus (still use this for email)
+    * planner-mode
+    * picture-mode (ascii art ftw)
+
+
+Tramp over ssh for cross host editing.
+It should be included in most recent emacs distributions.
+To get started, just try opening a remote file spec:
+
+C-x C-f:
+Find file: /user@host:/somepath/somefile
+
+Plays well with most other emacs commands including eshell and ido-mode.
+
+
+M-x align-regexp is a favorite.
+
+
+M-/
+
+I coded in Emacs, and checked into CVS, for a long time before I started using Emacs's revision control commands, and boy did I feel dumb when I realized what I'd been missing.
+Then I got to know ediff-revision (I'd been using ediff-buffers for years), and that was another head-smacking moment. Now ediff-revision is one of my favorite things in the world.
+
+M-x occur - use a regex to find lines in a buffer, usually a big log file (like grep), and display them in another window. Those lines are hot like M-x grep or M-x compile.
+
+    * permalink
+    * replycancel
+
+sisyphus 1 point 2 hours ago[+] (0 children)
+
+sisyphus 1 point 2 hours ago[-]
+
+C-x ( and C-x ) along with M-x apply-macro-to-region-lines .. oh, yum
+
+C-u M-| replaces the region with a shell command you give it. because sometimes i'm too lazy to figure out the emacs way when i know what to do with a string of shell commands piped together.
+
+The C-x v commands...what, you mean your editor doesn't automatically detect when a file you're editing is under version control and provide a generic cross platform interface to pretty much every major one? What kind of piece of crap are you using?
+
+M-x dired - again, cross platform dir browsing. Apple doesn't really have to hurry to rewrite the finder as far as i'm concerned. it will probably suck compared to dired anyway.
+
+C-s and C-r
+
+    * permalink
+    * replycancel
+
+
+1) c-space to select the upper left corner of a rectangle
+2) move to the bottom right corner and hit c-x r t
+3) Enter the text that you want to replace the rectangle with and hit return.
+Once you use it once, you will find you use it all the time.
+
+
+    * C-x 2
+    * C-x 3
+    * C-c C-d h (Lisp hyperspec in SLIME)
+    * C-c C-] (another Lisp/SLIME command)
+    * M-x mark-whole-buffer
+
+
+mark-whole-buffer is useful. It's on C-x h. 
+
+My bad. It's C-c C-] It should map to the slime-close-all-sexp function I think.
+I haven't got a SLIME or Emacs in front of me to check, sorry.
+Anyway, it closes all parentheses for you. If you've got Emacs parentheses highlighting on, it's easy enough to manually close them all, but I get lazy ;)
+
+
+Useful fol looking up the details of what everyone's telling you: C-h f. Gives you the documentation for a function. If you have the key, C-h k, then press the key, and you'll find out the function.
+
+narrow-to-region (C-x n n)
+
+This is one of the ones that emacs disables until you try to use it. I didn't know about it for a long time. It's very useful for limiting the scope of something you're trying to do. If I want to run some keyboard macro over a region without counting the lines, I narrow the buffer first, then C-u 9999 C-x e.
+
+C-x C-x exchange the mark and the point. (Say I want to move a Java function in the source file. I'm on the function's closing }. I hit m-c-b, and hit the matching {.. up a line or two, and I want to kill. Wait, did I set mark where I wanted it? C-x C-x... yup!)
+
+Recursive editing modes are a bit confusing. But say you're doing a query-replace-regexp, and then... for some reason, you want to look somewhere else to determine if you replace this instance (I can't think of an example, but I know it comes up when I'm programming). You can choose the option to enter a recursive editing mode... emacs lets you move around like normal, and gets off your back about the query-replace, but it's still "running", and you're in a recursive edit, and you can get back to your query-replace with C-].
+
+C-x r f frame-configuration-to-register. If you have some nice config of windows, but you want to do something to mess it up, you can save the frame configuration in a register. When you C-x r j, jump to the register, the windows are set up with the sizes they had, with the same buffers showing. It's handy.
+
+C-u M-x shell to create more than one shell window. I didn't realize the universal argument could be used there, and M-x shell will just keep reusing the same shell buffer without it.
+
+C-h w ... for when you figure a command is bound to a key, and you'd like to know what key.
+
+
+Wow - thank you for C-x r f! That is seriously cool!
+
+
+M-x butterfly
+
+
+C-c s, where I have it bound to:
+(global-set-key "\C-cs" 'toggle-hscroll-mode)
+It's really useful for reading log files.
+
+
+M-x yow
+
+(global-set-key (kbd "C-x C-c") 'bury-buffer). And what do you mean by "exiting [Emacs]"? Rebooting? :)
+
+(global-set-key [(control x) (control c)] '(lambda () (interactive) (if (y-or-n-p-with-timeout "Do you really want to exit Emacs ? " 4 nil) (save-buffers-kill-emacs))))
+
+
+query-replace-regex
+
+http://man.cat-v.org/plan_9/1/emacs
+
+
+
